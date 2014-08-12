@@ -19,24 +19,31 @@ public class Test
 		System.out.println("The newspaper is dated March 15th 1987. The headline is something about another Hollywood overdose. Filth. There is some dirt under my fingernails.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("What can I get for you darling?");
+		System.out.println("\"What can I get for you darling?\"");
 		System.out.println("1: Croissant \n2: Coffee");
 		String dinerchoice = inputReader.nextLine();
 		if (dinerchoice.equals("1")){
-			System.out.println("Gimme a Croissant. \n Coming right up!");
+			System.out.println("\"Gimme a Croissant.\"");
+			System.out.println("Continue... (press enter)");
+			inputReader.nextLine();
+			System.out.println("\"Coming right up!\"");
 		}
 		else
 		{
 			System.out.println("Just a coffee, thanks.\n Croissants always upset my stomach. \nThe waitress gives me a look I know all too well and turns away without another word. ");
 		}
-		System.out.println("Peering over my newspaper I notice a man is standing at the front counter.");
+		System.out.println("Continue... (press enter)");
+		inputReader.nextLine();
 		System.out.println("The bells on the door jingle as the only other patron comes in.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("There's some sort of commotion with the new patron");
+		System.out.println("Peering over my newspaper I notice the man is standing at the front counter.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("Put the fucking money in the fucking bag!");
+		System.out.println("There's some sort of commotion with the new patron.");
+		System.out.println("Continue... (press enter)");
+		inputReader.nextLine();
+		System.out.println("\"Put the fucking money in the fucking bag!\"");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
 		System.out.println("This whole city has gone to shit.");
