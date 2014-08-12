@@ -1,26 +1,22 @@
 import java.util.*;
 
-public class PoliceStation
+public class PoliceStation extends Location
 {
-	private static int JUST_ENTERED = 0; // default
-	private static int LEAVING = 1; // default
-	private static int INQUIRE = 2; // default
+	private static int JUST_ENTERED = 0;
+	private static int LEAVING = 1;
+	private static int INQUIRE = 2;
+	
+	public long policeStationState = JUST_ENTERED; // set to starting state
 	
 	public PoliceStation()
 	{
 		
 	}
-	public static void main(String[] args)
+	@Override
+	public void run(DetAdv da, GameVars gameVars)
 	{
-		GameVars gv = new GameVars();
-		gv.tryLoad();
-		PoliceStation ps = new PoliceStation();
-		ps.run(new Scanner(System.in), gv);
-	}
-	public void run(Scanner inputReader, GameVars gameVars)
-	{
-		gameVars.save();
-		if (gameVars.policeStationState == JUST_ENTERED)
+		Scanner inputReader = saveAndGetScanner(gameVars);
+		if (policeStationState == JUST_ENTERED)
 		{
 			System.out.println("The police force has been riddled with worthless cases lately.\nPeople will call the police over such stupid things nowadays.");
 			DetUtil.doContinue(inputReader);
@@ -31,20 +27,26 @@ public class PoliceStation
 			first.execute(inputReader);
 			if (first.getChoice() == 2)
 			{
-				gameVars.policeStationState = LEAVING;
-				run(inputReader, gameVars);
+				policeStationState = LEAVING;
+				run(da, gameVars);
 			}else
 			if (first.getChoice() == 1)
 			{
-				gameVars.policeStationState = INQUIRE;
-				run(inputReader, gameVars);
+				policeStationState = INQUIRE;
+				run(da, gameVars);
 			}
 		}else
-		if (gameVars.policeStationState == LEAVING)
+		if (policeStationState == LEAVING)
 		{
-			System.out.println("You leave the police station");
+			System.out.println("I left the police station. I figure this'll be just a cuff and book case...");
+			DetUtil.doContinue(inputReader);
+			System.out.println("Oh how wrong I was...");
+			DetUtil.doContinue(inputReader);
+			gameVars.setLocation(GameVars.CAR);
+			gameVars.car.state = Car.DRIVING_TO_MANSION;
+			da.run(gameVars);
 		}else
-		if (gameVars.policeStationState == INQUIRE)
+		if (policeStationState == INQUIRE)
 		{
 			System.out.println(gameVars.getCharacterName()+": \"What's this mess about, Walt?\"");
 			DetUtil.doContinue(inputReader);
@@ -77,13 +79,18 @@ public class PoliceStation
 				DetUtil.doContinue(inputReader);
 				System.out.println("Walt: \"Damnit, "+gameVars.getCharacterName()+", it's a horse! Not a child! Will you stop interrupting!");
 				DetUtil.doContinue(inputReader);
-				DetUtil.popupImage("angryFace.png");
+					DetUtil.popupImage("angryFace.png");
+				DetUtil.doContinue(inputReader);
+				System.out.println("Walt: \"Now I need you to get out there ASAP, you hear me!?\"");
 				DetUtil.doContinue(inputReader);
 			}else
 			if (kidChoice.getChoice() == 2)
 			{
-				System.out.println("Walt: \"...horse. It died late last night around 11pm");
+				System.out.println("Walt: \"...horse. It died late last night around 11pm. An important figure wants this wrapped up quickly so get on it!");
+				DetUtil.doContinue(inputReader);
 			}
+			System.out.println("I head out of the Police Station, it's raining now. I hope that doesn't affect the crime scene...");
+			DetUtil.doContinue(inputReader);
 		}
 	}
 }

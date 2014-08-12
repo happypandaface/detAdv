@@ -1,14 +1,14 @@
-import org.json.simple.*;
 import java.util.*;
 import java.nio.file.*;
 import java.io.*;
+import com.google.gson.*;
 
-public abstract class Savable
+public class Saver
 {
 	public static String file_encoding = "UTF-8";
 	public static String save_folder = "saves";
 	
-	public void tryLoad()
+	public static GameVars tryLoad()
 	{
 		Scanner s = new Scanner(System.in);
 		File saveFolder = new File(save_folder);
@@ -40,7 +40,9 @@ public abstract class Savable
 			try
 			{
 				String saveString = new String(Files.readAllBytes(Paths.get(saveFiles[startOpts.getChoice()-2].getAbsolutePath())), file_encoding);
-				fromString(saveString);
+				Gson gson = new Gson();
+				GameVars obj = gson.fromJson(saveString, GameVars.class);
+				return obj;
 			}catch (Exception e)
 			{
 				System.out.println("Couldn't load save file");
@@ -48,16 +50,15 @@ public abstract class Savable
 				e.printStackTrace();
 			}
 		}
+		return new GameVars();
 	}
-	public abstract String toString();
-	public abstract void fromString(String s);
-	public abstract String getSaveGameName();
-	public void save()
+	public static void save(GameVars gv)
 	{
-		String jsonString = toString();
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(gv);
 		try
 		{
-			PrintWriter writer = new PrintWriter(save_folder+"/"+getSaveGameName(), file_encoding);
+			PrintWriter writer = new PrintWriter(save_folder+"/"+gv.getSaveGameName(), file_encoding);
 			writer.println(jsonString);
 			writer.close();
 		}catch(Exception e)

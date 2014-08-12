@@ -23,6 +23,7 @@ public class DetUtil
 	{
 		JFrame frame = new JFrame();
 		frame.setTitle(img);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		Rectangle r = new Rectangle(100, 100, 200, 200);
 		frame.setBounds(r);

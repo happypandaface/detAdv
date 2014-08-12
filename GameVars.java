@@ -1,15 +1,41 @@
-import org.json.simple.*;
 import java.util.*;
 import java.nio.file.*;
 import java.io.*;
 
-public class GameVars extends Savable
+public class GameVars
 {
+	public static final long LOWEST_LOC = 1;
+	public static final long POLICE_STATION = 1;
+	public static final long MANSION = 2;
+	public static final long CAR = 3;
+	
 	private String characterName;
-	public long policeStationState;
+	public long currentLocation = POLICE_STATION;
+	public PoliceStation policeStation;
+	public Mansion mansion;
+	public Car car;
 	
 	public GameVars()
 	{
+		policeStation = new PoliceStation();
+		mansion = new Mansion();
+		car = new Car();
+	}
+	public Location getLocation()
+	{
+		if (currentLocation == POLICE_STATION)
+		{
+			return policeStation;
+		}else
+		if (currentLocation == MANSION)
+		{
+			return mansion;
+		}else
+		if (currentLocation == CAR)
+		{
+			return car;
+		}
+		return null;
 	}
 	public void setCharacterName(String s)
 	{
@@ -19,32 +45,16 @@ public class GameVars extends Savable
 	{
 		return characterName;
 	}
-	
-	@Override
+	public boolean checkLocation(long loc)
+	{
+		return currentLocation == loc;
+	}
+	public void setLocation(long s)
+	{
+		currentLocation = s;
+	}
 	public String getSaveGameName()
 	{
 		return getCharacterName();
-	}
-	@Override
-	public String toString()
-	{
-		JSONObject obj = new JSONObject();
-		
-		// here's where we save all the player's variables
-		
-		obj.put("name",characterName);
-		obj.put("policeStationState",policeStationState);
-		String jsonText = JSONValue.toJSONString(obj);
-		return jsonText;
-	}
-	@Override
-	public void fromString(String s)
-	{
-		Object obj=JSONValue.parse(s);
-		JSONObject jsonObj=(JSONObject)obj;
-		
-		// here's where we load all the player's variables
-		characterName = (String)jsonObj.get("name");
-		policeStationState = (long)jsonObj.get("policeStationState");
 	}
 }
