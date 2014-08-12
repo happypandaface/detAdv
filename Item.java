@@ -16,11 +16,11 @@ public class Item
 	
 	public String getInvName()
 	{
-		if (name.charAt(0) == "a" 
-			name.charAt(0) == "e" || 
-			name.charAt(0) == "i" || 
-			name.charAt(0) == "o" || 
-			name.charAt(0) == "u")
+		if (name.charAt(0) == 'a' ||
+			name.charAt(0) == 'e' || 
+			name.charAt(0) == 'i' || 
+			name.charAt(0) == 'o' || 
+			name.charAt(0) == 'u')
 		{
 			return "an " + name;
 		}else

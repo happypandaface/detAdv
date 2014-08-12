@@ -1,15 +1,15 @@
 import java.util.*;
 
-public class Inverntory
+public class Inventory
 {
-	public Array<Item> items;
+	public List<Item> items;
 	
 	public Inventory()
 	{
-		items = new Array<Item>();
+		items = new ArrayList<Item>();
 	}
 	
-	public void addItem(String s)
+	public void addItem(Item s)
 	{
 		items.add(s);
 	}
@@ -18,10 +18,10 @@ public class Inverntory
 	{
 		System.out.println("You check your inventory.");
 		System.out.println("You have:");
-		for (int i = 0; i < items.size; ++i)
+		for (int i = 0; i < items.size(); ++i)
 		{
-			Item i = new Item();
-			System.out.println(i.getInvName());
+			Item it = items.get(i);
+			System.out.println(it.getInvName());
 		}
 	}
 }
