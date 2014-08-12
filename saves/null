@@ -1,1 +1,1 @@
-{"currentLocation":1,"policeStation":{"policeStationState":2},"mansion":{},"car":{"state":0}}
+{"currentLocation":2,"rain":0,"policeStation":{"policeStationState":1},"mansion":{"state":2,"tempAction":1},"car":{"state":1},"inventory":{"items":[]}}

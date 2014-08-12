@@ -7,6 +7,10 @@ public class DetUtil
 {
 	public static boolean firstContinue = true;
 	
+	public static void doContinue()
+	{
+		doContinue(new Scanner(System.in));
+	}
 	public static void doContinue(Scanner inputReader)
 	{
 		if (firstContinue)

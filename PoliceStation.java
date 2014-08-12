@@ -24,7 +24,7 @@ public class PoliceStation extends Location
 			ChoiceMenu first = new ChoiceMenu();
 			first.addOption("inquire");
 			first.addOption("leave");
-			first.execute(inputReader);
+			first.execute(gameVars);
 			if (first.getChoice() == 2)
 			{
 				policeStationState = LEAVING;
@@ -56,7 +56,7 @@ public class PoliceStation extends Location
 			strange.setFailText(explainStrange+"\nYou have to choose an option:");
 			strange.addOption("comment on this");
 			strange.addOption("continue");
-			strange.execute(inputReader);
+			strange.execute(gameVars);
 			if (strange.getChoice() == 1)
 			{
 				System.out.println(gameVars.getCharacterName()+": \"Walt... after 25 years on the jobs, nothing surprises me anymore...\"");
@@ -72,7 +72,7 @@ public class PoliceStation extends Location
 			kidChoice.setFailText(fakeKidText+"\nYou have to choose an option:");
 			kidChoice.addOption("comment on this");
 			kidChoice.addOption("continue");
-			kidChoice.execute(inputReader);
+			kidChoice.execute(gameVars);
 			if (kidChoice.getChoice() == 1)
 			{
 				System.out.println(gameVars.getCharacterName()+": \"Jesus... Just a kid...\"");
@@ -91,6 +91,10 @@ public class PoliceStation extends Location
 			}
 			System.out.println("I head out of the Police Station, it's raining now. I hope that doesn't affect the crime scene...");
 			DetUtil.doContinue(inputReader);
+			gameVars.setLocation(GameVars.CAR);
+			gameVars.car.state = Car.DRIVING_TO_MANSION;
+			gameVars.rain = GameVars.RAIN;
+			da.run(gameVars);
 		}
 	}
 }

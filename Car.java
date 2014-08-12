@@ -16,7 +16,12 @@ public class Car extends Location
 			Scanner inputReader = saveAndGetScanner(gv);
 			System.out.println("The car ride to the Mansion is long and arduous\nIt is in the hills and the road is unkept and riddled with pot holes.");
 			DetUtil.doContinue(inputReader);
-			System.out.println("But I make it. My firebird is old, but it can still tough\nthrough anything, just like me.");
+			if (gv.rain == GameVars.RAIN)
+			{
+				System.out.println("The rain isn't helping either. On one especially deep hole and my wheel spins, getting no traction.");
+				DetUtil.doContinue(inputReader);
+			}
+			System.out.println("But I make it eventually. My firebird is old, but it can still tough\nthrough anything, just like me.");
 			DetUtil.doContinue(inputReader);
 			gv.setLocation(GameVars.MANSION);
 			da.run(gv);

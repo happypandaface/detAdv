@@ -9,17 +9,25 @@ public class GameVars
 	public static final long MANSION = 2;
 	public static final long CAR = 3;
 	
+	public static final long NO_RAIN = 0;
+	public static final long LIGHT_RAIN = 1;
+	public static final long RAIN = 2;
+	public static final long HEAVY_RAIN = 3;
+	
 	private String characterName;
 	public long currentLocation = POLICE_STATION;
+	public long rain = NO_RAIN;
 	public PoliceStation policeStation;
 	public Mansion mansion;
 	public Car car;
+	public Inventory inventory;
 	
 	public GameVars()
 	{
 		policeStation = new PoliceStation();
 		mansion = new Mansion();
 		car = new Car();
+		inventory = new Inventory();
 	}
 	public Location getLocation()
 	{
