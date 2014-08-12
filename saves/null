@@ -1,1 +1,1 @@
-{"currentLocation":2,"rain":0,"policeStation":{"policeStationState":1},"mansion":{"state":2,"tempAction":1},"car":{"state":1},"inventory":{"items":[]}}
+{"currentLocation":4,"rain":0,"policeStation":{"policeStationState":1},"mansion":{"state":2,"tempAction":1},"car":{"state":1},"pokerRoom":{"state":0,"hands":[null,null,null,null,null]},"inventory":{"items":[]}}

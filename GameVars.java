@@ -8,6 +8,7 @@ public class GameVars
 	public static final long POLICE_STATION = 1;
 	public static final long MANSION = 2;
 	public static final long CAR = 3;
+	public static final long POKER_ROOM = 4;
 	
 	public static final long NO_RAIN = 0;
 	public static final long LIGHT_RAIN = 1;
@@ -20,6 +21,7 @@ public class GameVars
 	public PoliceStation policeStation;
 	public Mansion mansion;
 	public Car car;
+	public PokerRoom pokerRoom;
 	public Inventory inventory;
 	
 	public GameVars()
@@ -27,6 +29,7 @@ public class GameVars
 		policeStation = new PoliceStation();
 		mansion = new Mansion();
 		car = new Car();
+		pokerRoom = new PokerRoom();
 		inventory = new Inventory();
 	}
 	public Location getLocation()
@@ -42,6 +45,10 @@ public class GameVars
 		if (currentLocation == CAR)
 		{
 			return car;
+		}else
+		if (currentLocation == POKER_ROOM)
+		{
+			return pokerRoom;
 		}
 		return null;
 	}
