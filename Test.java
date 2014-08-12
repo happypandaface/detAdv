@@ -7,8 +7,16 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		System.out.println("Enter your name:");
+		Test t;
+		t=new Test();
+		t.run();
+	}
+	public Test(){
+	}
+	public void run()
+	{
 		Scanner inputReader = new Scanner(System.in);
+		System.out.println("Enter your name:");
 		String name = inputReader.nextLine();
 		System.out.println("Welcome, "+name+", to the world of pokemon (press enter)!");
 		
