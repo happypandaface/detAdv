@@ -3,7 +3,8 @@ import java.util.*;
 public class ChoiceMenu
 {
 	private List<String> options;
-	private String lastChoice = "";
+	private int lastChoice;
+	private String answerFailText = "You have to choose an option";
 	
 	public ChoiceMenu()
 	{
@@ -14,9 +15,14 @@ public class ChoiceMenu
 	{
 		options.add(s);
 	}
+	public void setFailText(String s)
+	{
+		answerFailText = s;
+	}
 	
 	public void execute(Scanner inputReader)
 	{
+		lastChoice = -1;
 		say();
 		read(inputReader);
 	}
@@ -25,16 +31,35 @@ public class ChoiceMenu
 		for (int i = 0; i < options.size(); ++i)
 		{
 			
-			System.out.println(i+". "+options.get(i));
+			System.out.println((i+1)+". "+options.get(i));
 		}
 	}
 	public void read(Scanner inputReader)
 	{
-		lastChoice = inputReader.nextLine();
+		while (true)
+		{
+			try
+			{
+				lastChoice = Integer.parseInt(inputReader.nextLine());
+			}catch(NumberFormatException e)
+			{
+				lastChoice = -1;
+			}
+			if (lastChoice > 0 && lastChoice <= options.size())
+			{
+				break;
+			}
+			answerFail();
+			say();
+		}
+	}
+	public void answerFail()
+	{
+		System.out.println(answerFailText);
 	}
 	
 	public int getChoice()
 	{
-		return Integer.parseInt(lastChoice);
+		return lastChoice;
 	}
 }
