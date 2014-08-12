@@ -2,12 +2,12 @@ import java.util.*;
 
 public class ChoiceMenu
 {
-	private Array<String> options;
+	private List<String> options;
 	private String lastChoice = "";
 	
 	public ChoiceMenu()
 	{
-		options = new Array<String>();
+		options = new ArrayList<String>();
 	}
 	
 	public void addOption(String s)
@@ -15,19 +15,20 @@ public class ChoiceMenu
 		options.add(s);
 	}
 	
-	public void execute(Scanner s)
+	public void execute(Scanner inputReader)
 	{
 		say();
-		read(s);
+		read(inputReader);
 	}
 	public void say()
 	{
-		for (int i = 0; i < options.size; ++i)
+		for (int i = 0; i < options.size(); ++i)
 		{
-			System.out.println(i+". "+s);
+			
+			System.out.println(i+". "+options.get(i));
 		}
 	}
-	public void read(Scanner s)
+	public void read(Scanner inputReader)
 	{
 		lastChoice = inputReader.nextLine();
 	}
