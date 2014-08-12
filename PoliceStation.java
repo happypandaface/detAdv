@@ -9,7 +9,9 @@ public class PoliceStation
 	public static void main(String[] args)
 	{
 		PoliceStation ps = new PoliceStation();
-		ps.run(new Scanner(System.in), new GameVars());
+		GameVars gv = new GameVars();
+		ps.run(new Scanner(System.in), gv);
+		gv.save();
 	}
 	public void run(Scanner inputReader, GameVars gameVars)
 	{
@@ -20,10 +22,11 @@ public class PoliceStation
 		first.addOption("inquire");
 		first.addOption("leave");
 		first.execute(inputReader);
-		if (first.getChoice() == 1)
+		if (first.getChoice() == 2)
 		{
 			System.out.println("You leave the police station");
 		}else
+		if (first.getChoice() == 1)
 		{
 			System.out.println("\"What's this mess about, Walt?\"");
 		}
