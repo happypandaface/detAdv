@@ -8,6 +8,15 @@ public class PoliceStation extends Location
 	
 	public long policeStationState = JUST_ENTERED; // set to starting state
 	
+	public static void main(String[] args)
+	{
+		GameVars gv = Saver.tryLoad();
+		DetAdv da = new DetAdv();
+		PoliceStation ps = new PoliceStation();
+		ps.run(da, gv);
+		System.exit(0);
+	}
+	
 	public PoliceStation()
 	{
 		
@@ -79,7 +88,7 @@ public class PoliceStation extends Location
 				DetUtil.doContinue(inputReader);
 				System.out.println("Walt: \"Damnit, "+gameVars.getCharacterName()+", it's a horse! Not a child! Will you stop interrupting!");
 				DetUtil.doContinue(inputReader);
-					DetUtil.popupImage("angryFace.png");
+				DetUtil.popupImage("angryFace.png");
 				DetUtil.doContinue(inputReader);
 				System.out.println("Walt: \"Now I need you to get out there ASAP, you hear me!?\"");
 				DetUtil.doContinue(inputReader);

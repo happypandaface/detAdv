@@ -183,9 +183,17 @@ class Hand
 								{
 									if (pNum == dNum)
 									{
-										long tryVal = twoPair+baseVal;
-										if (tryVal > highestVal)
-											highestVal = tryVal;
+										if (dNum == vNum)
+										{
+											long tryVal = fullHouse+baseVal;
+											if (tryVal > highestVal)
+												highestVal = tryVal;
+										}else
+										{
+											long tryVal = twoPair+baseVal;
+											if (tryVal > highestVal)
+												highestVal = tryVal;
+										}
 									}else
 									{
 										long tryVal = onePair+baseVal;
@@ -196,9 +204,17 @@ class Hand
 								if (iNum == cNum &&
 									iNum == pNum)
 								{
-									long tryVal = threeOfAKind+baseVal;
-									if (tryVal > highestVal)
-										highestVal = tryVal;
+									if (dNum == vNum)
+									{
+										long tryVal = fullHouse+baseVal;
+										if (tryVal > highestVal)
+											highestVal = tryVal;
+									}else
+									{
+										long tryVal = threeOfAKind+baseVal;
+										if (tryVal > highestVal)
+											highestVal = tryVal;
+									}
 								}
 								if (iNum == cNum &&
 									iNum == pNum &&
@@ -245,6 +261,27 @@ class Hand
 	}
 }
 
+class Pot
+{
+	long totalMoney;
+	long highestBet;
+	List<Integer> players;
+	
+	public Pot()
+	{
+		
+	}
+	public void addPlayer(int player)
+	{
+		players.add(player);
+	}
+	public void raise(int gold)
+	{
+		highestBet += gold;
+		totalMoney += highestBet;
+	}
+}
+
 public class PokerRoom extends Location
 {
 	int state = AT_TABLE;
@@ -261,9 +298,9 @@ public class PokerRoom extends Location
 	@Override
 	public void run(DetAdv da, GameVars gv)
 	{
+		Scanner inputReader = saveAndGetScanner(gv);
 		if (state == AT_TABLE)
 		{
-			Scanner inputReader = saveAndGetScanner(gv);
 			System.out.println("You're in the poker room.");
 			ChoiceMenu pokerDraw = new ChoiceMenu();
 			pokerDraw.addOption("deal 'em");
@@ -279,6 +316,7 @@ public class PokerRoom extends Location
 		{
 			// clear old data
 			hands = new ArrayList<Hand>();
+			Pot pot = new Pot();
 			System.out.println("dealing...");
 			DetUtil.doContinue();
 			for (int i = 0; i < num_hands; ++i)
@@ -288,6 +326,31 @@ public class PokerRoom extends Location
 				System.out.println("player "+i+" has "+h.getDescription());
 				DetUtil.doContinue();
 			}
+			ChoiceMenu handAction = new ChoiceMenu();
+			handAction.addOption("raise");
+			handAction.addOption("call");
+			handAction.addOption("fold");
+			handAction.execute(gv);
+			for (int i = 0; i < pot.players.size(); ++i)
+			{
+				if (handAction.getChoice() == 1)
+				{
+					System.out.print("How much do you wanna raise: ");
+					int betMoney = DetUtil.getGTZeroInt();
+					System.out.println("");
+					pot.raise(betMoney);
+				}else 
+				if (handAction.getChoice() == 2)
+				{
+					pot.raise(0);
+				}else
+				if (handAction.getChoice() == 3)
+				{
+					
+				}
+			}
+			System.out.println("Pot's ripe! "+pot.totalMoney+" gold");
+			DetUtil.doContinue();
 			hands.add(new Hand(3).setRandom(hands)); // flop
 			hands.add(new Hand(1).setRandom(hands)); // turn
 			hands.add(new Hand(1).setRandom(hands)); // river
