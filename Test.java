@@ -16,6 +16,8 @@ public class Test
 	public void run()
 	{
 		Scanner inputReader = new Scanner(System.in);
+		System.out.println("Chapter One: Good Neighbors");
+		inputReader.nextLine();
 		System.out.println("The newspaper is dated March 15th 1987. The headline is something about another Hollywood overdose. Filth. There is some dirt under my fingernails.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
