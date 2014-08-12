@@ -77,7 +77,7 @@ public class Test
 				System.out.println("\"Keep the change.\"");
 				System.out.println("Continue... (press enter)");
 				inputReader.nextLine();
-				System.out.println("I exit out the front door");
+				System.out.println("I exit out the front door.");
 				
 				break;
 			}
@@ -86,7 +86,7 @@ public class Test
 				System.out.println("This lowlife isn't worth my effort.");
 				System.out.println("Continue... (press enter)");
 				inputReader.nextLine();
-				System.out.println("I sneak out the back door");
+				System.out.println("I sneak out the back door.");
 				System.out.println("Continue... (press enter)");
 				inputReader.nextLine();
 				break;
@@ -102,18 +102,18 @@ public class Test
 		System.out.println("The engine turns over a few times before coming to life.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("I let her for several minutes before turning on the radio.");
+		System.out.println("I let her idle for several minutes before turning on the radio.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("Dispatch has something about a death over in Arlington heights");
+		System.out.println("Dispatch has something about a death over in Arlington heights.");
 		System.out.println("\"A body... discovered late... 2200 W Euclid Ave... \"");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
-		System.out.println("Static");
+		System.out.println("Static.");
 		System.out.println("Continue... (press enter)");
 		inputReader.nextLine();
 		while (true){
-			System.out.println("1: Head straight there. \n2:Stop by the deptartment first.");
+			System.out.println("1: Head straight there. \n2: Stop by the department first.");
 			String dispatchchoice = inputReader.nextLine();
 			if (dispatchchoice.equals("1")){
 				System.out.println("Let's check it out.");
