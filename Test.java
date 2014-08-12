@@ -70,6 +70,7 @@ public class Test
 				System.out.println("\"Calm down buddy, nobody has to get hurt here.\"");
 				System.out.println("Continue... (press enter)");
 				inputReader.nextLine();
+				//if coffee should throw in his face but need to have gotten the coffee
 				System.out.println("The surprise of my voice startles the would be thief. A moments hesitation is all I need. In an instant the assailant is on the ground with a bloody nose.");
 				System.out.println("Continue... (press enter)");
 				inputReader.nextLine();
