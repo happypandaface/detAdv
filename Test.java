@@ -17,6 +17,10 @@ public class Test
 		frame.setTitle( "image of game" );
 		frame.setVisible( true );
 		
+        JLabel label = new JLabel(new ImageIcon("game.png"));
+		frame.getContentPane().add(label);
+		
+		
 		Rectangle r = new Rectangle(100, 100, 200, 200);
 		frame.setBounds(r);
 		
