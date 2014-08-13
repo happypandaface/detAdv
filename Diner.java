@@ -37,8 +37,8 @@ public class Diner extends Location
 			else if(dinerchoice.equals("2"))
 			{
 				System.out.println("Just a coffee, thanks.\nCroissants always upset my stomach. \nThe waitress gives me a look I know all too well, fills up my cup, and turns away without another word. ");
-				gameVars.coffee = GameVars.COFFEE;
-				da.run(gameVars);
+				gv.coffee = GameVars.COFFEE;
+				da.run(gv);
 				break;
 			}
 			System.out.println("I don't have all day.");
