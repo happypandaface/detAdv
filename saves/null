@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"currentLocation":1,"rain":0,"coffee":0,"policeStation":{"policeStationState":0},"mansion":{"state":1,"tempAction":1},"car":{"state":0},"pokerRoom":{"state":0,"hands":[]},"diner":{},"inventory":{"items":[]}}
-=======
-{"currentLocation":4,"rain":0,"policeStation":{"policeStationState":0},"mansion":{"state":1,"tempAction":1},"car":{"state":0},"pokerRoom":{"state":1,"hands":[{"num_cards":2,"cards":[{"suit":3,"num":8},{"suit":1,"num":9}]},{"num_cards":2,"cards":[{"suit":4,"num":6},{"suit":1,"num":12}]},{"num_cards":2,"cards":[{"suit":2,"num":6},{"suit":1,"num":5}]},{"num_cards":2,"cards":[{"suit":3,"num":5},{"suit":1,"num":7}]},{"num_cards":2,"cards":[{"suit":3,"num":7},{"suit":2,"num":2}]},{"num_cards":3,"cards":[{"suit":3,"num":13},{"suit":3,"num":12},{"suit":3,"num":14}]},{"num_cards":1,"cards":[{"suit":4,"num":7}]},{"num_cards":1,"cards":[{"suit":1,"num":10}]}]},"inventory":{"items":[]}}
->>>>>>> a0a800004b86314b57bb4ed1d776ab49fe20f306
+{"currentLocation":3,"rain":0,"coffee":1,"policeStation":{"policeStationState":0},"mansion":{"state":1,"tempAction":1},"car":{"state":3},"pokerRoom":{"state":0,"hands":[]},"diner":{},"inventory":{"items":[]}}

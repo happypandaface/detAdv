@@ -18,17 +18,13 @@ public class Car extends Location
 		{
 		System.out.println("The engine turns over a few times before coming to life.");
 		DetUtil.doContinue(inputReader);
-		inputReader.nextLine();
 		System.out.println("I let her idle for several minutes before turning on the radio.");
 		DetUtil.doContinue(inputReader);
-		inputReader.nextLine();
 		System.out.println("Dispatch has something about a death over in Arlington heights.");
 		System.out.println("\"A body... discovered late... 2200 W Euclid Ave... \"");
 		DetUtil.doContinue(inputReader);
-		inputReader.nextLine();
 		System.out.println("Static.");
 		DetUtil.doContinue(inputReader);
-		inputReader.nextLine();
 		ChoiceMenu first = new ChoiceMenu();
 			first.addOption("Head straight there.");
 			first.addOption("Stop by the department first.");
