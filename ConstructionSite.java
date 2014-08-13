@@ -32,11 +32,15 @@ public class ConstructionSite extends Location
 			DetUtil.doContinue(gv);
 			DetUtil.popupImage("bertLeonard.png");
 			DetUtil.doContinue(gv);
-			System.out.println("Remeber! You can always type in 'i' to look at your inventory!");
+			System.out.println("Remember! You can always type in 'i' to look at your inventory!");
 			System.out.println("You can show people things in your inventory!");
 			ChoiceMenu askConst = new ChoiceMenu();
 			askConst.addOption("show note");
 			askConst.execute(gv);
+			//if show note 
+			// goddamn it i thought we were through with the cops. 
+			//You mean you don't know? Kieth died last week. Terrible thing. happens way too often in this line of work. 
+			// I'm hoping to get out of the business soon.
 		}
 	}
 }

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"currentLocation":5,"rain":0,"coffee":0,"inventory":{"items":[{"type":3,"amount":242}]},"policeStation":{"policeStationState":0},"mansion":{"state":1,"tempAction":1},"car":{"state":0},"pokerRoom":{"state":0,"gameState":0,"totalGamesPlayed":0,"royalSuit":1,"beatSimon":0,"hands":[]},"diner":{},"constructionSite":{"state":1},"raceTracks":{},"amusementPark":{}}
+=======
+{"currentLocation":3,"rain":0,"coffee":0,"inventory":{"items":[]},"policeStation":{"policeStationState":0},"mansion":{"state":4,"visited":1,"tempAction":1},"car":{"state":1},"pokerRoom":{"state":0,"hands":[]},"diner":{},"constructionSite":{"state":1},"raceTracks":{"state":5,"JUST_ARRIVED":0,"first_time":0},"amusementPark":{}}
+>>>>>>> ccde5ffa1ee71d2353847ac213ac306b500fffdd
