@@ -75,7 +75,7 @@ public class PoliceStation extends Location
 				System.out.println("Oh how wrong I was...");
 				DetUtil.doContinue(inputReader);
 			}
-			String fakeKidText = "Walt: \"The victim is a 8 year old male...\"";
+			String fakeKidText = "Walt: \"The victim is a 3 year old male...\"";
 			System.out.println(fakeKidText);
 			ChoiceMenu kidChoice = new ChoiceMenu();
 			kidChoice.setFailText(fakeKidText+"\nYou have to choose an option:");
