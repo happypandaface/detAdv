@@ -57,8 +57,6 @@ public class Car extends Location
 				System.out.println("This coffee is still too hot to drink.");
 				DetUtil.doContinue(inputReader);
 			}
-			else
-			{
 			System.out.println("The station is only a few blocks from here.");
 			DetUtil.doContinue(inputReader);
 			System.out.println("I still manage to hit most of the red lights on the way.");
@@ -67,7 +65,6 @@ public class Car extends Location
 			DetUtil.doContinue(inputReader);
 			gv.setLocation(GameVars.POLICE_STATION);
 			da.run(gv);
-			}
 		}
 	
 	
