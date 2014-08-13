@@ -4,7 +4,7 @@ public class ChoiceMenu
 {
 	private List<String> options;
 	private int lastChoice;
-	private String answerFailText = "You have to choose an option";
+	private String answerFailText = "I have to choose an option";
 	private boolean canAccessInventory = true;
 	
 	public ChoiceMenu()

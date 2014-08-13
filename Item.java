@@ -9,6 +9,7 @@ public class Item
 	static int CARNIE_FLYER = 5;
 	
 	private int type;
+	private int amount;
 	private String name;
 	public String description;
 	
@@ -21,6 +22,27 @@ public class Item
 		name = s;
 	}
 	
+	public boolean checkType(int t)
+	{
+		return type == t;
+	}
+	
+	public int getAmount()
+	{
+		return amount;
+	}
+	public void setAmount(int f)
+	{
+		amount = f;
+	}
+	public void addAmount(int a)
+	{
+		amount += a;
+	}
+	public void removeAmount(int a)
+	{
+		amount -= a;
+	}
 	public void setDescription(String d)
 	{
 		description = d;
@@ -32,6 +54,13 @@ public class Item
 	
 	public String getInvName()
 	{
+		if (type == MONEY)
+		{
+			if (amount == 1)
+				return "A Dollar";
+			else
+				return amount+" Dollars";
+		}
 		if (name.charAt(0) == 'a' ||
 			name.charAt(0) == 'e' || 
 			name.charAt(0) == 'i' || 

@@ -1,465 +1,219 @@
 import java.util.*;
 
-class Card
-{
-	int suit;
-	int num;
-	static int HEARTS = 1;
-	static int DIAMONDS = 2;
-	static int SPADES = 3;
-	static int CLUBS = 4;
-	
-	public Card()
-	{
-		suit = 0;// no card
-		num = 0;// no card
-	}
-	
-	public String getName()
-	{
-		String str = "";
-		if (num < 11)
-			str += num + " of ";
-		else if (num == 11)
-			str += "jack of ";
-		else if (num == 12)
-			str += "queen of ";
-		else if (num == 13)
-			str += "king of ";
-		else if (num == 14)
-			str += "ace of ";
-		if (suit == HEARTS)
-			str += "hearts";
-		else if (suit == DIAMONDS)
-			str += "diamonds";
-		else if (suit == SPADES)
-			str += "spades";
-		else if (suit == CLUBS)
-			str += "clubs";
-		return str;
-	}
-	
-	public boolean checkSame(Card c)
-	{
-		if (c.num == num &&
-			c.suit == suit)
-			return true;
-		return false;
-	}
-	
-	public static Card getRandom()
-	{
-		Card c = new Card();
-		c.num = (int)Math.floor(Math.random()*13)+2;
-		c.suit = (int)Math.floor(Math.random()*4)+1;
-		return c;
-	}
-	public static Card getRandom(List<Hand> hands)
-	{
-		while (true)
-		{
-			boolean works = true;
-			Card c = Card.getRandom();
-			for (int i = 0; i < hands.size(); ++i)
-				if (hands.get(i).checkInHand(c))
-					works = false;
-			if (works)
-				return c;
-		}
-	}
-}
-class Hand
-{
-	int num_cards;
-	List<Card> cards;
-	static long maxCard = 13;
-	static long handTypeRankDiff = maxCard*maxCard*maxCard*maxCard*maxCard;
-	static long highCard = 0;
-	static long onePair = handTypeRankDiff;
-	static long twoPair = handTypeRankDiff*2;
-	static long threeOfAKind = handTypeRankDiff*3;
-	static long straight = handTypeRankDiff*4;
-	static long flush = handTypeRankDiff*5;
-	static long fullHouse = handTypeRankDiff*6;
-	static long fourOfAKind = handTypeRankDiff*7;
-	static long straightFlush = handTypeRankDiff*8;
-	
-	public Hand()
-	{
-		this(2); // default for texas holdem
-	}
-	public Hand(int size)
-	{
-		num_cards = size;
-		cards = new ArrayList<Card>();
-	}
-	
-	public void addCard(Card c)
-	{// indiscriminate
-		cards.add(c);
-	}
-	
-	public boolean checkInHand(Card c)
-	{
-		for (int i = 0; i < cards.size(); ++i)
-			if (cards.get(i).checkSame(c))
-				return true;
-		return false;
-	}
-	
-	public Hand setRandom(List<Hand> hands)
-	{
-		for (int i = 0; i < num_cards; ++i)
-		{
-			while (true)
-			{
-				boolean works = true;
-				Card c = Card.getRandom(hands);
-				if (checkInHand(c))
-					works = false;
-				if (works)
-				{
-					cards.add(c);
-					break;
-				}
-			}
-		}
-		return this;
-	}
-	
-	public String getDescription()
-	{
-		String str = "";
-		for (int i = 0; i < cards.size(); ++i)
-		{
-			if (i == cards.size()-1)
-				str += "and ";
-			str += "the " + cards.get(i).getName();
-			if (i != cards.size()-1)
-				str += ", ";
-		}
-		return str;
-	}
-	public long getVal()
-	{
-		long highestVal = 0;
-		// every permuatation of hands
-		for (int i = 0; i < cards.size(); ++i)
-			for (int c = 0; c < cards.size(); ++c)
-				for (int p = 0; p < cards.size(); ++p)
-					for (int d = 0; d < cards.size(); ++d)
-						for (int v = 0; v < cards.size(); ++v)
-						{
-							if (i != c &&
-								i != p &&
-								i != d &&
-								i != v &&
-								c != p &&
-								c != d &&
-								c != v &&
-								p != d &&
-								p != v &&
-								d != v)
-							{
-								Card iCard = cards.get(i);
-								Card cCard = cards.get(c);
-								Card pCard = cards.get(p);
-								Card dCard = cards.get(d);
-								Card vCard = cards.get(v);
-								int iNum = iCard.num;
-								int cNum = cCard.num;
-								int pNum = pCard.num;
-								int dNum = dCard.num;
-								int vNum = vCard.num;
-								long baseVal = 0;
-								baseVal += vNum;
-								baseVal += dNum*maxCard;
-								baseVal += pNum*maxCard*maxCard;
-								baseVal += cNum*maxCard*maxCard*maxCard;
-								baseVal += iNum*maxCard*maxCard*maxCard*maxCard;
-								if (baseVal > highestVal)
-									highestVal = baseVal;
-								if (iNum == cNum)
-								{
-									if (pNum == dNum)
-									{
-										if (dNum == vNum)
-										{
-											long tryVal = fullHouse+baseVal;
-											if (tryVal > highestVal)
-												highestVal = tryVal;
-										}else
-										{
-											long tryVal = twoPair+baseVal;
-											if (tryVal > highestVal)
-												highestVal = tryVal;
-										}
-									}else
-									{
-										long tryVal = onePair+baseVal;
-										if (tryVal > highestVal)
-											highestVal = tryVal;
-									}
-								}
-								if (iNum == cNum &&
-									iNum == pNum)
-								{
-									if (dNum == vNum)
-									{
-										long tryVal = fullHouse+baseVal;
-										if (tryVal > highestVal)
-											highestVal = tryVal;
-									}else
-									{
-										long tryVal = threeOfAKind+baseVal;
-										if (tryVal > highestVal)
-											highestVal = tryVal;
-									}
-								}
-								if (iNum == cNum &&
-									iNum == pNum &&
-									iNum == dNum)
-								{
-									long tryVal = fourOfAKind+baseVal;
-									if (tryVal > highestVal)
-										highestVal = tryVal;
-								}
-								if (iCard.suit == cCard.suit &&
-									cCard.suit == pCard.suit &&
-									pCard.suit == dCard.suit &&
-									dCard.suit == vCard.suit)
-								{
-									long tryVal = flush+baseVal;
-									if (tryVal > highestVal)
-										highestVal = tryVal;
-								}
-								if (iNum == cNum+1 &&
-									cNum == pNum+1 &&
-									pNum == dNum+1 &&
-									dNum == vNum+1)
-								{
-									long tryVal = straight+baseVal;
-									if (tryVal > highestVal)
-										highestVal = tryVal;
-								}
-								if (iCard.suit == cCard.suit &&
-									cCard.suit == pCard.suit &&
-									pCard.suit == dCard.suit &&
-									dCard.suit == vCard.suit &&
-									iNum == cNum+1 &&
-									cNum == pNum+1 &&
-									pNum == dNum+1 &&
-									dNum == vNum+1)
-								{
-									long tryVal = straightFlush+baseVal;
-									if (tryVal > highestVal)
-										highestVal = tryVal;
-								}
-							}
-						}
-		return highestVal;
-	}
-}
-
-class Pot
-{
-	long totalMoney;
-	long highestBet;
-	List<Integer> players;
-	Map<Integer, Integer> playerBet;
-	List<Integer> foldedPlayers;
-	
-	public Pot()
-	{
-		players = new ArrayList<Integer>();
-		foldedPlayers = new ArrayList<Integer>();
-		playerBet = new HashMap<Integer, Integer>();
-	}
-	public void addPlayer(int player)
-	{
-		players.add(player);
-	}
-	public void removePlayer(int player)
-	{
-		foldedPlayers.add(player);
-	}
-	public void removePlayerNow(int player)
-	{
-		for (int i = players.size()-1; i >= 0; --i)
-			if (players.get(i) == player)
-				players.remove(i);
-	}
-	public void removeFoldedPlayers()
-	{
-		for (int i = foldedPlayers.size()-1; i >= 0; --i)
-		{
-			removePlayerNow(foldedPlayers.get(i));
-			foldedPlayers.remove(i);
-		}
-
-	}
-	public int raise(int player, int gold)
-	{
-		int alreadyBet = 0;
-		if (playerBet.get(player) != null)
-			alreadyBet = playerBet.get(player);
-		int makeUp = 0;
-		if (alreadyBet < highestBet)
-			makeUp += highestBet-alreadyBet;
-		int thisBet = makeUp+gold;
-		playerBet.put(player, alreadyBet+thisBet);
-		highestBet += gold;
-		totalMoney += makeUp+gold;
-		return thisBet;
-	}
-	
-	public void doBetting(GameVars gv)
-	{
-		playerBet.clear();
-		boolean ripe = false;
-		while (!ripe)
-		{
-			for (int i = 0; i < players.size(); ++i)
-			{
-				int playerNum = players.get(i);
-				int choice = 0;
-				int betMoney = 0;
-				if (playerNum == 0)
-				{
-					ChoiceMenu handAction = new ChoiceMenu();
-					System.out.println("What do I do?");
-					handAction.addOption("raise");
-					handAction.addOption("call");
-					handAction.addOption("fold");
-					handAction.execute(gv);
-					choice = handAction.getChoice();
-					if (choice == 1)
-					{
-						System.out.print("How much do you wanna raise: ");
-						betMoney = DetUtil.getGTZeroInt();
-						System.out.println("");
-					}
-				}else
-				{
-					choice = (int)Math.floor(Math.random()*3f)+1;
-					betMoney = (int)Math.floor(Math.random()*300f)+1;
-				}
-				if (choice == 1)
-				{
-					// check player's moneys to make more pots if necessary
-					raise(playerNum, betMoney);
-					System.out.println("player "+playerNum+" raises "+betMoney);
-				}else 
-				if (choice == 2)
-				{
-					raise(playerNum, 0);
-					System.out.println("player "+playerNum+" calls");
-				}else
-				if (choice == 3)
-				{
-					removePlayer(playerNum);
-					System.out.println("player "+playerNum+" folds");
-				}
-			}
-			removeFoldedPlayers();
-			// check if pot's ripe!
-			ripe = true;
-			for (int i = 0; i < players.size(); ++i)
-			{
-				int playerNum = players.get(i);
-				System.out.println(playerNum+", "+playerBet.get(playerNum)+", "+highestBet);
-				if (playerBet.get(playerNum) != highestBet)
-					ripe = false;
-			}
-		}
-		System.out.println("Pot's ripe! "+totalMoney+" gold");
-		DetUtil.doContinue();
-	}
-	
-	public void findWinners(PokerRoom pr)
-	{
-		long bestPlayerHigh = 0;
-		Hand bestOverallHand = null;
-		List<Integer> winners = new ArrayList<Integer>();
-		for (int i = 0; i < players.size(); ++i)
-		{
-			long currPlayerVal = 0;
-			Hand bestHand = null;
-			// every combination of hands
-			for (int c1 = 0; c1 < 7; ++c1)
-				for (int c2 = 0; c2 < 7; ++c2)
-					for (int c3 = 0; c3 < 7; ++c3)
-						for (int c4 = 0; c4 < 7; ++c4)
-							for (int c5 = 0; c5 < 7; ++c5)
-							{
-								if (c1 != c2 &&
-									c1 != c3 &&
-									c1 != c4 &&
-									c1 != c5 &&
-									c2 != c3 &&
-									c2 != c4 &&
-									c2 != c5 &&
-									c3 != c4 &&
-									c3 != c5 &&
-									c4 != c5)
-								{
-									Hand h = new Hand();
-									h.addCard(pr.getCardForPlayer(i, c1));
-									h.addCard(pr.getCardForPlayer(i, c2));
-									h.addCard(pr.getCardForPlayer(i, c3));
-									h.addCard(pr.getCardForPlayer(i, c4));
-									h.addCard(pr.getCardForPlayer(i, c5));
-									long currVal = h.getVal();
-									if (currVal > currPlayerVal)
-									{
-										bestHand = h;
-										currPlayerVal = currVal;
-									}
-								}
-							}
-			if (currPlayerVal > bestPlayerHigh)
-			{
-				winners.clear();
-				bestPlayerHigh = currPlayerVal;
-				bestOverallHand = bestHand;
-				winners.add(i);
-			}else if (currPlayerVal == bestPlayerHigh)
-			{
-				winners.add(i);
-			}
-		}
-		String winString = "";
-		if (winners.size() == 1)
-		{
-			winString += "player "+winners.get(0);
-		}else
-		{
-			winString += "players ";
-			for (int i = 0; i < winners.size(); ++i)
-			{
-				winString += (winners.get(i)+1);
-				if (i == winners.size()-2)
-					winString += " and ";
-				else if (i != winners.size()-1)
-					winString += ", ";
-			}
-		}
-		System.out.println(winString+" wins, best hand: "+bestOverallHand.getDescription());
-		DetUtil.doContinue();
-	}
-}
-
-public class PokerRoom extends Location
+public class PokerRoom extends Location implements CustomPoker
 {
 	int state = AT_TABLE;
+	int gameState = NOT_STARTED;
+	int totalGamesPlayed = 0;
+	int royalSuit = 1;
+	
+	int beatSimon = 0;
+	
 	static int AT_TABLE = 0;
 	static int IN_GAME = 1;
+	
+	static int NOT_STARTED = 0;
+	static int FLOPPED = 1;
+	static int TURNED = 2;
+	static int RIVERED = 3;
+	
 	static int num_hands = 5;
 	List<Hand> hands;
+	
+	public static void main(String[] args)
+	{
+		GameVars gv = Saver.tryLoad();
+		DetAdv da = new DetAdv();
+		Item money = new Item(Item.MONEY);
+		money.setAmount(300);
+		gv.inventory.addItem(money);
+		PokerRoom pr = new PokerRoom();
+		pr.run(da, gv);
+		System.exit(0);
+	}
 	
 	public PokerRoom()
 	{
 		hands = new ArrayList<Hand>();
+	}
+	
+	@Override
+	public String getPlayerName(GameVars gv, int num)
+	{
+		if (num == 0)
+			return "I";
+		if (num == 1)
+			return "Bert";
+		if (num == 2)
+			return "Simon Blunt";
+		if (num == 3)
+			return "Patrick Stewart";
+		if (num == 4)
+			return "Martha Stewart";
+		return "A Ghost";
+	}
+	@Override
+	public int playerMoneyLeft(GameVars gv, int playerNum)
+	{
+		if (playerNum == 0)
+		{
+			return gv.inventory.getAmount(Item.MONEY);
+		}
+		return 0;
+	}
+	@Override
+	public String getActionWord(GameVars gv, int playerNum, int action)
+	{
+		if (action == CustomPoker.RAISE)
+		{
+			if (playerNum == 0)
+				return "raise";
+			else
+				return "raises";
+		}else
+		if (action == CustomPoker.CALL)
+		{
+			if (playerNum == 0)
+				return "call";
+			else
+				return "calls";
+		}else
+		if (action == CustomPoker.FOLD)
+		{
+			if (playerNum == 0)
+				return "fold";
+			else
+				return "folds";
+		}
+		return "does";
+	}
+	@Override
+	public String boardState(GameVars gv)
+	{
+		String str = "I have "+hands.get(0).getDescription()+" in my hand";
+		if (gameState >= FLOPPED)
+			str += "\nThe flop is "+getFlop().getDescription();
+		if (gameState >= TURNED)
+			str += "\nThe turn is "+getTurn().getName();
+		if (gameState >= RIVERED)
+			str += "\nThe river is "+getRiver().getName();
+		return str;
+	}
+	@Override
+	public int whatAction(GameVars gv, Pot pot, int playerNum)
+	{
+		int choice = 0;
+		int betMoney = 0;
+		if (playerNum == 0)
+		{
+			while(true)
+			{
+				System.out.println("Bet's to me.");
+				System.out.println(boardState(gv));
+				System.out.println("The pot is at "+pot.totalMoney+" and I need "+pot.getMakeup(playerNum)+" more to stay in");
+				System.out.println("What do I do?");
+				ChoiceMenu handAction = new ChoiceMenu();
+				handAction.addOption("raise");
+				handAction.addOption("call");
+				handAction.addOption("fold");
+				handAction.execute(gv);
+				choice = handAction.getChoice();
+				if (choice == 1)
+				{
+					System.out.print("How much do I wanna raise? (enter 0 to go back)");
+					boolean raising = true;
+					while(true)
+					{
+						betMoney = DetUtil.getUInt();
+						int moneyLeft = playerMoneyLeft(gv, playerNum);
+						if (betMoney == 0)
+							raising = false;
+						if (betMoney <= moneyLeft)
+							break;
+						System.out.print("You don't have that much! (enter 0 to go back)");
+					}
+					if (raising)
+					{
+						// take away the money
+						gv.inventory.removeItems(Item.MONEY, betMoney);
+						break;
+					}
+					System.out.println("");
+				}else
+				if (choice == 2)
+				{
+					int callMoney = pot.getMakeup(0);
+					gv.inventory.removeItems(Item.MONEY, callMoney);
+					break;
+				}else
+				{
+					break;
+				}
+			}
+		}else
+		{
+			if (isRiggedGame())
+			{
+				if (playerNum == 2)
+					choice = CustomPoker.CALL;
+				else
+					choice = CustomPoker.FOLD;
+			}else
+			{
+				int moneyToGo = pot.checkMoneyToGo(playerNum);
+				float chance = (float)Math.random();
+				if (chance < .6f)
+				{
+					choice = CustomPoker.CALL;
+				}else if (chance < .8f)
+				{
+					// if the player has close to no money left :'( don't raise
+					if (pot.totalMoney >= playerMoneyLeft(gv, 0)-10f)
+					{
+						choice = CustomPoker.CALL;
+					}else
+					{
+						choice = CustomPoker.RAISE;
+						do
+						{
+							betMoney = (int)Math.floor(Math.random()*(pot.totalMoney*.3f+10))+5;
+						}while(pot.checkMoneyToGo(0)+betMoney > playerMoneyLeft(gv, 0));
+					}
+				}else
+				{
+					if (moneyToGo < 5 ||
+						moneyToGo/pot.totalMoney < .08f)
+						choice = CustomPoker.CALL;
+					else
+						choice = CustomPoker.FOLD;
+				}
+			}
+		}
+		if (choice == 1)
+		{
+			// check player's moneys to make more pots if necessary
+			pot.raise(playerNum, betMoney);
+			System.out.println(getPlayerName(gv, playerNum)+" "+getActionWord(gv, playerNum, CustomPoker.RAISE)+" "+betMoney + (betMoney==1?" dollar":" dollars"));
+		}else 
+		if (choice == 2)
+		{
+			pot.raise(playerNum, 0);
+			System.out.println(getPlayerName(gv, playerNum)+" "+getActionWord(gv, playerNum, CustomPoker.CALL));
+		}else
+		if (choice == 3)
+		{
+			pot.removePlayer(playerNum);
+			System.out.println(getPlayerName(gv, playerNum)+" "+getActionWord(gv, playerNum, CustomPoker.FOLD));
+		}
+		DetUtil.doContinue();
+		return choice;
+	}
+	
+	public boolean isRiggedGame()
+	{
+		if (totalGamesPlayed == 2)
+			return true;
+		return false;
 	}
 	
 	@Override
@@ -484,34 +238,104 @@ public class PokerRoom extends Location
 			// clear old data
 			hands = new ArrayList<Hand>();
 			Pot pot = new Pot();
-			System.out.println("dealing...");
+			System.out.println("The cards are dealt...");
+			++totalGamesPlayed;
 			DetUtil.doContinue();
 			for (int i = 0; i < num_hands; ++i)
 			{
 				pot.addPlayer(i);
 				Hand h = new Hand().setRandom(hands);
+				// do the rigged game:
+				if (isRiggedGame())
+				{
+					if (i == 0)
+					{
+						h = new Hand();
+						h.addCard(new Card(11, royalSuit));
+						h.addCard(new Card(13, royalSuit));
+					}else
+					{
+						h = new Hand();
+						h.addCard(new Card(2, (royalSuit+2)%4+1));
+						h.addCard(new Card(7, (royalSuit+3)%4+1));
+					}
+				}
 				hands.add(h);
 				if (i == 0)
 				{
-					System.out.println("player "+i+" has "+h.getDescription());
+					System.out.println(getPlayerName(gv, i)+" get "+h.getDescription());
 					DetUtil.doContinue();
 				}
 			}
-			pot.doBetting(gv);
-			hands.add(new Hand(3).setRandom(hands)); // flop
-			hands.add(new Hand(1).setRandom(hands)); // turn
-			hands.add(new Hand(1).setRandom(hands)); // river
-			System.out.println("the flop is "+getFlop().getDescription());
-			pot.doBetting(gv);
-			System.out.println("the turn is the "+getTurn().getName());
-			pot.doBetting(gv);
-			System.out.println("and the river is the "+getRiver().getName());
-			pot.doBetting(gv);
-			DetUtil.doContinue();
+			do// this do loop is just so you can break out whenever
+			{
+				gameState = NOT_STARTED;
+				if (isRiggedGame())
+				{
+					Hand flop = new Hand();
+					flop.addCard(new Card(10, royalSuit));
+					flop.addCard(new Card(6, (royalSuit+3)%4+1));
+					flop.addCard(new Card(11, (royalSuit+2)%4+1));
+					hands.add(flop); // rigged flop
+					Hand turn = new Hand();
+					turn.addCard(new Card(14, royalSuit));
+					hands.add(turn); // rigged turn
+					Hand river = new Hand();
+					river.addCard(new Card(12, royalSuit));
+					hands.add(river); // rigged river
+				}else
+				{
+					hands.add(new Hand(3).setRandom(hands)); // flop
+					hands.add(new Hand(1).setRandom(hands)); // turn
+					hands.add(new Hand(1).setRandom(hands)); // river
+				}
+				pot.setBetLeaderOffset(3);
+				pot.doBetting(gv, this);
+				DetUtil.doContinue();
+				if (pot.lastPlayer())
+					break;
+				System.out.println("the flop is "+getFlop().getDescription());
+				gameState = FLOPPED;
+				DetUtil.doContinue();
+				pot.doBetting(gv, this);
+				DetUtil.doContinue();
+				if (pot.lastPlayer())
+					break;
+				System.out.println("the turn is the "+getTurn().getName());
+				gameState = TURNED;
+				DetUtil.doContinue();
+				pot.doBetting(gv, this);
+				DetUtil.doContinue();
+				if (pot.lastPlayer())
+					break;
+				System.out.println("and the river is the "+getRiver().getName());
+				gameState = RIVERED;
+				DetUtil.doContinue();
+				pot.doBetting(gv, this);
+				if (pot.lastPlayer())
+					break;
+				DetUtil.doContinue();
+			}while(false);
 			
-			pot.findWinners(this);
+			List<Integer> winners = pot.findWinners(gv, this);
 			
-			run(da, gv);
+			for (int i = 0; i < winners.size(); ++i)
+			{
+				if (winners.get(0) == 0)
+				{
+					int winnings = (int)Math.floor(pot.totalMoney/winners.size());
+					gv.inventory.addItems(Item.MONEY, winnings);
+					System.out.println("You won "+winnings+" dollars!");
+				}
+			}
+			if (isRiggedGame() && winners.size() == 1 && winners.get(0) == 0)
+			{
+				System.out.println("rigged game won");
+			}else
+			{
+				state = AT_TABLE;
+				run(da, gv);
+			}
 		}
 	}
 	public Hand getFlop()

@@ -27,6 +27,23 @@ public class DetUtil
 		firstContinue = false;
 		inputReader.nextLine();
 	}
+	public static int getUInt()
+	{
+		Scanner inputReader = new Scanner(System.in);
+		while (true)
+		{
+			try
+			{
+				int rtn = Integer.parseInt(inputReader.nextLine());
+				if (rtn >= 0)
+					return rtn;
+			}catch (Exception e)
+			{
+				
+			}
+			System.out.println("Input a positive number: ");
+		}
+	}
 	public static int getGTZeroInt()
 	{
 		Scanner inputReader = new Scanner(System.in);

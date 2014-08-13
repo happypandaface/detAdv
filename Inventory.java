@@ -13,6 +13,34 @@ public class Inventory
 	{
 		items.add(s);
 	}
+	public void addItems(int type, int amount)
+	{
+		for (int i = 0; i < items.size(); ++i)
+		{
+			Item it = items.get(i);
+			if (it.checkType(type))
+				it.addAmount(amount);
+		}
+	}
+	public void removeItems(int type, int amount)
+	{
+		for (int i = 0; i < items.size(); ++i)
+		{
+			Item it = items.get(i);
+			if (it.checkType(type))
+				it.removeAmount(amount);
+		}
+	}
+	public int getAmount(int type)
+	{
+		for (int i = 0; i < items.size(); ++i)
+		{
+			Item it = items.get(i);
+			if (it.checkType(type))
+				return it.getAmount();
+		}
+		return 0;
+	}
 	public void access(GameVars gv)
 	{
 		System.out.println("I look in my bag...");
