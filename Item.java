@@ -2,9 +2,20 @@
 
 public class Item
 {
+	static int SADDLE_NOTE = 1;
+	static int CARETAKER_PHOTOS = 2;
+	static int MONEY = 3;
+	static int PHONE_CALL_CASSETTE = 4;
+	static int CARNIE_FLYER = 5;
+	
+	private int type;
 	private String name;
 	public String description;
 	
+	public Item(int t)
+	{
+		type = t;
+	}
 	public Item(String s)
 	{
 		name = s;

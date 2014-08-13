@@ -1,4 +1,6 @@
-
+import java.util.*;
+import java.nio.file.*;
+import java.io.*;
 
 public class AmusementPark extends Location
 {
@@ -15,6 +17,6 @@ public class AmusementPark extends Location
 	@Override
 	public void run(DetAdv da, GameVars gv)
 	{
-		Scanner inputReader = saveAndGetScanner(gameVars);
+		Scanner inputReader = saveAndGetScanner(gv);
 	}
 }
