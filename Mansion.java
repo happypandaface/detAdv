@@ -56,7 +56,7 @@ public class Mansion extends Location
 			}else
 			if (crimeFirst.getChoice() == 2)
 			{
-				System.out.println("I leave. There's left to see here.");
+				System.out.println("I leave. There's nothing left to see here.");
 				crimeFirst.addOption("read the note");
 			}
 		}else

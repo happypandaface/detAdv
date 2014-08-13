@@ -69,6 +69,7 @@ public class Diner extends Location
 				if (gv.coffee == GameVars.COFFEE)
 				{
 					System.out.println("I throw my coffee in his face as he whirls around to face me.");
+					gv.coffee = GameVars.NO_COFFEE;
 					DetUtil.doContinue(inputReader);
 				}
 				else
