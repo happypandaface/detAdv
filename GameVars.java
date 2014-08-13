@@ -10,6 +10,10 @@ public class GameVars
 	public static final long CAR = 3;
 	public static final long POKER_ROOM = 4;
 	public static final long DINER = 5;
+	public static final long RACE_TRACKS = 6;
+	public static final long AMUSEMENT_PARK = 7;
+	public static final long CLUB = 9; // returns poker room currently
+	public static final long CONSTRUCTION_SITE = 10;
 	
 	public static final long NO_RAIN = 0;
 	public static final long LIGHT_ = 1;
@@ -23,21 +27,31 @@ public class GameVars
 	public long currentLocation = DINER;
 	public long rain = NO_RAIN;
 	public long coffee = NO_COFFEE;
+	
+	public Inventory inventory;
+	
 	public PoliceStation policeStation;
 	public Mansion mansion;
 	public Car car;
 	public PokerRoom pokerRoom;
 	public Diner diner;
-	public Inventory inventory;
+	public ConstructionSite constructionSite;
+	public RaceTracks raceTracks;
+	public AmusementPark amusementPark;
 	
 	public GameVars()
-	{
+	{	
+		// initialize all the locations when starting
+		// the game
 		diner = new Diner();
 		policeStation = new PoliceStation();
 		mansion = new Mansion();
 		car = new Car();
 		pokerRoom = new PokerRoom();
 		inventory = new Inventory();
+		constructionSite = new ConstructionSite();
+		raceTracks = new RaceTracks();
+		amusementPark = new AmusementPark();
 	}
 	public Location getLocation()
 	{
@@ -57,9 +71,22 @@ public class GameVars
 		{
 			return car;
 		}else
-		if (currentLocation == POKER_ROOM)
+		if (currentLocation == POKER_ROOM ||
+			currentLocation == CLUB)
 		{
 			return pokerRoom;
+		}else
+		if (currentLocation == RACE_TRACKS)
+		{
+			return raceTracks;
+		}else
+		if (currentLocation == AMUSEMENT_PARK)
+		{
+			return amusementPark;
+		}else
+		if (currentLocation == CONSTRUCTION_SITE)
+		{
+			return constructionSite;
 		}
 		return null;
 	}
