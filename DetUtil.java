@@ -11,6 +11,10 @@ public class DetUtil
 	{
 		doContinue(new Scanner(System.in));
 	}
+	public static void doContinue(GameVars gv)
+	{
+		doContinue();
+	}
 	public static void doContinue(Scanner inputReader)
 	{
 		if (firstContinue)

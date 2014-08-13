@@ -66,13 +66,13 @@ public class Mansion extends Location
 			DetUtil.doContinue(inputReader);
 			System.out.println("I'm surprised to find a note in this small puddle!");
 			DetUtil.doContinue(inputReader);
-			gv.inventory.addItem(getMuderNote());
+			gv.inventory.addItem(Mansion.getMurderNote());
 			ChoiceMenu atPool = new ChoiceMenu();
 			atPool.addOption("back to crime scene");
 			atPool.execute(gv);
 		}
 	}
-	public Item getMuderNote()
+	public static Item getMurderNote()
 	{
 		Item i = new Item("murder note");
 		i.setDescription("It says cool stuff");
