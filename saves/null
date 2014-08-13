@@ -1,1 +1,1 @@
-{"currentLocation":2,"rain":0,"coffee":0,"policeStation":{"policeStationState":0},"mansion":{"state":2,"tempAction":1},"car":{"state":1},"pokerRoom":{"state":0,"hands":[]},"diner":{},"inventory":{"items":[]}}
+{"currentLocation":3,"rain":0,"coffee":0,"inventory":{"items":[]},"policeStation":{"policeStationState":0},"mansion":{"state":4,"visited":1,"tempAction":1},"car":{"state":1},"pokerRoom":{"state":0,"hands":[]},"diner":{},"constructionSite":{"state":1},"raceTracks":{"state":5,"JUST_ARRIVED":0,"first_time":0},"amusementPark":{}}

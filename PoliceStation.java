@@ -2,9 +2,9 @@ import java.util.*;
 
 public class PoliceStation extends Location
 {
-	private static int JUST_ENTERED = 0;
-	private static int LEAVING = 1;
-	private static int INQUIRE = 2;
+	public static long JUST_ENTERED = 0;
+	public static long LEAVING = 1;
+	public static long INQUIRE = 2;
 	
 	public long policeStationState = JUST_ENTERED; // set to starting state
 	
