@@ -4,28 +4,35 @@ import java.io.*;
 
 public class GameVars
 {
-	public static final long LOWEST_LOC = 1;
+	public static final long LOWEST_LOC = 5;
 	public static final long POLICE_STATION = 1;
 	public static final long MANSION = 2;
 	public static final long CAR = 3;
 	public static final long POKER_ROOM = 4;
+	public static final long DINER = 5;
 	
 	public static final long NO_RAIN = 0;
-	public static final long LIGHT_RAIN = 1;
+	public static final long LIGHT_ = 1;
 	public static final long RAIN = 2;
 	public static final long HEAVY_RAIN = 3;
 	
+	public static final long NO_COFFEE = 0;
+	public static final long COFFEE = 1;
+	
 	private String characterName;
-	public long currentLocation = POLICE_STATION;
+	public long currentLocation = DINER;
 	public long rain = NO_RAIN;
+	public long coffee = NO_COFFEE;
 	public PoliceStation policeStation;
 	public Mansion mansion;
 	public Car car;
 	public PokerRoom pokerRoom;
+	public Diner diner;
 	public Inventory inventory;
 	
 	public GameVars()
 	{
+		diner = new Diner();
 		policeStation = new PoliceStation();
 		mansion = new Mansion();
 		car = new Car();
@@ -34,6 +41,10 @@ public class GameVars
 	}
 	public Location getLocation()
 	{
+		if (currentLocation == DINER)
+		{
+			return diner;
+		}else
 		if (currentLocation == POLICE_STATION)
 		{
 			return policeStation;
