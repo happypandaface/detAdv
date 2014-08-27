@@ -155,9 +155,19 @@ public class PokerRoom extends Location implements CustomPoker
 			if (isRiggedGame())
 			{
 				if (playerNum == 2)
-					choice = CustomPoker.CALL;
-				else
+				{
+					if (gameState == RIVERED)
+					{
+						choice = CustomPoker.RAISE;
+						betMoney = gv.inventory.getAmount(Item.MONEY);
+					}else
+					{
+						choice = CustomPoker.CALL;
+					}
+				}else
+				{
 					choice = CustomPoker.FOLD;
+				}
 			}else
 			{
 				int moneyToGo = pot.checkMoneyToGo(playerNum);
@@ -326,11 +336,12 @@ public class PokerRoom extends Location implements CustomPoker
 					int winnings = (int)Math.floor(pot.totalMoney/winners.size());
 					gv.inventory.addItems(Item.MONEY, winnings);
 					System.out.println("You won "+winnings+" dollars!");
+					DetUtil.doContinue();
 				}
 			}
 			if (isRiggedGame() && winners.size() == 1 && winners.get(0) == 0)
 			{
-				System.out.println("rigged game won");
+				beatSimon = 1;
 			}else
 			{
 				state = AT_TABLE;
